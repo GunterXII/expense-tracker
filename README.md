@@ -24,4 +24,6 @@ This app helps you **manage your income and expenses**, shows your **balance in 
 - **CSS3 (responsive, minimal & modern UI)**  
 - **localStorage** (persistent data storage)  
 
+##Demo
 
+expense-tracker-qkp3.vercel.app
