@@ -1,0 +1,253 @@
+/* =========================
+   addTransaction.css — Stile moderno, responsive (adattato al tuo JSX)
+   Mobile-first, palette minimal/elegante
+   ========================= */
+
+:root{
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --text: #0f172a;
+  --accent: #2563eb;    /* blu indaco (principale) */
+  --success: #16a34a;
+  --danger: #ef4444;
+  --glass: rgba(15,23,42,0.04);
+  --radius: 12px;
+  --shadow-soft: 0 6px 18px rgba(15,23,42,0.06);
+  --transition: 200ms cubic-bezier(.2,.9,.3,1);
+  --max-width-form: 720px;
+  --gap: 14px;
+}
+
+/* ===== Container principale ===== */
+.add-transaction-container{
+  width: calc(100% - 32px);
+  max-width: var(--max-width-form);
+  margin: 28px auto;
+  padding: 18px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, var(--bg), rgba(246,248,251,0.8));
+  border-radius: calc(var(--radius) + 4px);
+}
+
+/* titolo */
+.add-transaction-container h2{
+  margin: 0 0 12px 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto;
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+/* ===== Card / form ===== */
+.transaction-box{
+  background: var(--card);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(15,23,42,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  box-sizing: border-box;
+}
+
+/* Tipografia globale per form controls */
+.transaction-box input,
+.transaction-box select,
+.transaction-box textarea,
+.transaction-box button{
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 15px;
+  color: var(--text);
+}
+
+/* Input / select / textarea moderni */
+.transaction-box input,
+.transaction-box select,
+.transaction-box textarea{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,42,0.06);
+  background: linear-gradient(180deg, #fff, #fbfdff);
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+  min-height: 44px; /* area tocco comoda */
+}
+
+/* textarea */
+.transaction-box textarea{
+  min-height: 96px;
+  resize: vertical;
+  line-height: 1.45;
+  padding-top: 10px;
+}
+
+/* focus accessibile */
+.transaction-box input:focus,
+.transaction-box select:focus,
+.transaction-box textarea:focus{
+  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
+  box-shadow: 0 6px 20px rgba(37,99,235,0.08);
+  transform: translateY(-1px);
+}
+
+/* placeholder più tenue */
+.transaction-box ::placeholder{
+  color: #9aa3b2;
+  opacity: 1;
+}
+
+/* ===== Transaction type (radio labels) =====
+   Il tuo JSX usa: <label><input type="radio" .../> Spesa</label>
+   Styling con :has per evidenziare il label attivo; fallback con .tx-active
+*/
+.transaction-type{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* etichette come pill */
+.transaction-type label{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--muted);
+  background: var(--glass);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+  position: relative;
+}
+
+/* nasconde il radio nativo ma mantiene accessibilità */
+.transaction-type input[type="radio"]{
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* stato attivo usando :has (browser moderni) */
+.transaction-type label:has(input[type="radio"]:checked){
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 85%, #fff), var(--accent));
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.12);
+  transform: translateY(-1px);
+}
+
+/* fallback: puoi aggiungere dinamicamente la classe `.tx-active` al label dal JSX */
+.transaction-type label.tx-active{
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 85%, #fff), var(--accent));
+  color: #fff !important;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.12);
+}
+
+/* dimensione tocco minima */
+.transaction-type label{
+  min-height: 40px;
+}
+
+/* ===== Responsive grid per campi (opzionale se vuoi dividere) ===== */
+.form-grid{
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: 1fr;
+}
+
+/* su tablet e desktop una griglia a 2 colonne per alcuni campi */
+@media (min-width: 720px){
+  .form-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .full-width { grid-column: 1 / -1; }
+}
+
+/* ===== Pulsanti ===== */
+.transaction-box button[type="submit"]{
+  width: 100%;
+  padding: 12px 14px;
+  background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 85%, #000 10%));
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(37,99,235,0.12);
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+  min-height: 48px;
+}
+
+/* hover / active */
+.transaction-box button[type="submit"]:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37,99,235,0.16);
+}
+.transaction-box button[type="submit"]:active{
+  transform: translateY(0);
+  opacity: 0.95;
+}
+
+/* pulsante secondario (se necessario) */
+.btn-secondary{
+  background: transparent;
+  border: 1px solid rgba(15,23,42,0.06);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* ===== Helper classes ===== */
+.field-label{ font-size: 13px; color: var(--muted); margin-bottom: 6px; display: inline-block; }
+.input-error{ color: var(--danger); font-size: 13px; }
+
+/* for icons inside inputs (se vuoi posizionare SVG o emoji) */
+.input-with-icon{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.input-with-icon .input-icon{
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+/* ===== Small screens tweaks ===== */
+@media (max-width: 420px){
+  .add-transaction-container{ padding: 14px; margin: 18px 12px; }
+  .transaction-box{ padding: 14px; }
+  .transaction-type{ gap: 8px; font-size: 13px; }
+}
+
+/* evita larghezze fisse residue */
+.transaction-box input[type="number"],
+.transaction-box input[type="date"],
+.transaction-box select,
+.transaction-box textarea{
+  max-width: 100%;
+}
+
+/* focus-visible per accessibilità */
+.transaction-box input:focus-visible,
+.transaction-box textarea:focus-visible,
+.transaction-box select:focus-visible {
+  outline: 2px solid rgba(37,99,235,0.14);
+  outline-offset: 2px;
+}
+
+/* fine addTransaction.css */

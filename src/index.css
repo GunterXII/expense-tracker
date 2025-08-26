@@ -1,0 +1,137 @@
+/* index.css – Base globale, palette e reset leggeri */
+/* Import font moderno (Inter). Puoi anche aggiungerlo in index.html via <link> se preferisci */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+:root{
+  /* palette condivisa con gli altri file */
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --text: #0f172a;
+  --accent: #2563eb;
+  --success: #16a34a;
+  --danger: #ef4444;
+  --radius: 12px;
+  --shadow-soft: 0 8px 24px rgba(15,23,42,0.06);
+  --gap: 16px;
+  --container-max: 1200px;
+  --transition: 180ms ease;
+}
+
+/* Reset base */
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Corpo pagina: mobile-first, usa min-height per evitare problemi su mobile */
+html, body {
+  height: 100%;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Container centrale riutilizzabile */
+.container{
+  width: calc(100% - 32px);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Titoli di default */
+h1,h2,h3,h4{
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+/* Paragrafi */
+p{
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* Link e bottoni di base */
+a{
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover{ color: color-mix(in srgb, var(--accent) 80%, #000 20%); }
+
+/* Button base (tutti i bottoni ereditano da qui) */
+button{
+  font-family: inherit;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+  background: transparent;
+  color: inherit;
+}
+
+/* Input/select/textarea base per coerenza */
+input, select, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+/* Elevazione e cards comuni */
+.card{
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* Focus visibile per accessibilità */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 3px solid rgba(37,99,235,0.12);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Scrollbar leggera (solo estetica, non critica) */
+::-webkit-scrollbar{ height:8px; width:8px; }
+::-webkit-scrollbar-thumb{
+  background: rgba(15,23,42,0.06);
+  border-radius: 8px;
+}
+
+/* Utility responsive per testo/centering */
+.center { text-align: center; }
+.row{ display:flex; gap:var(--gap); align-items:center; }
+.column{ display:flex; flex-direction:column; gap:var(--gap); }
+
+/* Helpers per spacing rapidi */
+.mt-8{ margin-top: 8px; }
+.mt-12{ margin-top: 12px; }
+.mb-12{ margin-bottom: 12px; }
+
+/* Evita overflow orizzontale */
+html, body { overflow-x: hidden; }
+
+/* Piccoli fix per immagini responsive */
+img{ max-width: 100%; height: auto; display: block; }
+
+/* Riduce il font-size su schermi molto piccoli per evitare rotture */
+@media (max-width: 360px){
+  :root{ --gap: 12px; }
+  body{ font-size: 14px; }
+}
+
+/* Fine index.css */

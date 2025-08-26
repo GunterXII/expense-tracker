@@ -1,0 +1,256 @@
+/* dashboard.css
+   Design minimal, elegante e responsive
+   Mobile-first. Coerente con la palette usata in addTransaction.css
+*/
+
+/* ===== Variabili globali (mantieni coerenza con gli altri file) ===== */
+:root{
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --text: #0f172a;
+  --accent: #2563eb;
+  --success: #16a34a;
+  --danger: #ef4444;
+  --radius: 12px;
+  --shadow-soft: 0 8px 24px rgba(15,23,42,0.06);
+  --gap: 16px;
+}
+
+/* ===== Container principale ===== */
+.dashboard{
+  width: calc(100% - 32px);
+  max-width: 1200px;
+  margin: 22px auto;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(246,248,251,0.6), transparent);
+}
+
+/* Header interno: titolo + azione */
+.dashboard-inner{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* Titolo principale */
+.dashboard-inner h2{
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+/* Pulsante aggiungi - stile prominente, accessibile */
+.add-transaction{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 85%, #000 8%));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(37,99,235,0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+/* Hover / focus */
+.add-transaction:hover{ transform: translateY(-3px); box-shadow: 0 14px 36px rgba(37,99,235,0.16); }
+.add-transaction:active{ transform: translateY(0); opacity: 0.95; }
+.add-transaction:focus{ outline: 3px solid rgba(37,99,235,0.12); outline-offset: 3px; }
+
+/* ===== Riepilogo saldo / cards ===== */
+.balance-card{
+  background: linear-gradient(180deg, #fff, #fcfdff);
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* layout riepilogo: card affiancate su desktop */
+.summary-cards{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  margin-bottom: 10px;
+}
+
+/* singole card entrate/uscite */
+.income-card, .expenses-card{
+  background: var(--card);
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+  border: 1px solid rgba(15,23,42,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 72px;
+}
+
+/* numeri e label */
+.income-card p, .expenses-card p, .balance-card p{ margin: 0; color: var(--muted); font-size: 0.95rem; }
+.income-card h3, .expenses-card h3, .balance-card h1{
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+/* semantica colori per importi */
+.income { color: var(--success); font-weight: 700; }
+.expense { color: var(--danger); font-weight: 700; }
+
+/* ===== Area grafici + transazioni ===== */
+/* default mobile: stack verticale */
+.transactions-chart-row{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  margin-top: 10px;
+}
+
+/* card transazioni recenti */
+.transactions{
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(15,23,42,0.04);
+  box-sizing: border-box;
+}
+
+/* lista transazioni (usata dal componente RecentTransactions) */
+.transactions ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.transactions li{
+  padding: 12px 8px;
+  border-bottom: 1px solid rgba(15,23,42,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* stile per singola entry: categoria + importo */
+.transaction-category{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* importo allineato a destra */
+.transaction-item .income, .transaction-item .expense{
+  font-weight: 800;
+  min-width: 90px;
+  text-align: right;
+}
+
+/* Gestione layout della card grafico spese */
+.expense-chart{
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(15,23,42,0.04);
+  box-sizing: border-box;
+}
+
+/* container del grafico: mantiene proporzioni */
+.chart-container{
+    position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* assicurati che canvas si ridimensioni correttamente */
+.chart-container canvas{
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+}
+
+/* classe helper per layout a metà larghezza (usata nel JSX) */
+.half-width { width: 100%; }
+
+/* ===== Desktop / tablet: layout a colonne affiancate ===== */
+@media (min-width: 880px){
+  /* riepilogo: saldo in alto e due card affiancate */
+  .summary-cards{
+    grid-template-columns: 1fr 1fr 1fr; /* puoi adattare: balance + income + expense */
+    align-items: center;
+  }
+
+  /* area chart e transazioni affiancate */
+  .transactions-chart-row{
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  /* .half-width class diventa effettivamente metà larghezza */
+  .half-width { width: auto; }
+
+  /* rendi il container del grafico più alto su desktop */
+  .chart-container{ height: 380px; }
+}
+
+/* ===== Tabelle o elementi di fallback (NoTransaction) ===== */
+.no-transactions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 18px;
+  color: var(--muted);
+}
+
+/* icona grande per stato vuoto */
+.no-transactions-icon{
+  font-size: 36px;
+  opacity: 0.9;
+}
+
+/* ===== Accessibilità e micro-interazioni ===== */
+button, .add-transaction, .transaction-item .income, .transaction-item .expense{
+  transition: all 180ms ease;
+}
+
+/* assicura contrasto e focus per chi usa tastiera */
+button:focus, .add-transaction:focus{
+  outline: 3px solid rgba(37,99,235,0.12);
+  outline-offset: 3px;
+}
+
+/* ===== Piccoli ritocchi per compatibilità canvas/chartjs ===== */
+.chart-container .chartjs-render-monitor{
+  max-width: 100% !important;
+  height: 100% !important;
+}
+
+/* ===== Fix visuali: evita overflow in mobile ===== */
+.dashboard, .transactions, .expense-chart, .transaction-box{
+  word-break: break-word;
+}
+
+/* Fine dashboard.css */
