@@ -26,4 +26,4 @@ This app helps you **manage your income and expenses**, shows your **balance in 
 
 ##Demo
 
-[Demo](expense-tracker-qkp3.vercel.app)
+Copy this link --> http://expense-tracker-qkp3.vercel.app
